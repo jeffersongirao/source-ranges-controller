@@ -16,7 +16,7 @@ All dependencies have been vendored, so there's no need to any additional downlo
 You can directly create the controller deployment with kubectl:
 
 ```console
-kubectl create -f https://raw.githubusercontent.com/jeffersongirao/source-ranges-controller/master/example/controller.yaml
+$ kubectl create -f https://raw.githubusercontent.com/jeffersongirao/source-ranges-controller/master/example/controller.yaml
 ```
 
 Next, run an application and expose it via a Kubernetes Service:
