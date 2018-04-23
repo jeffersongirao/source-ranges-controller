@@ -25,7 +25,7 @@ WORKDIR := /go/src/github.com/jeffersongirao/source-ranges-controller
 # Get docker path or an empty string
 DOCKER := $(shell command -v docker)
 
-UNIT_TEST_CMD := go test `go list ./... | grep -v /vendor/` -v
+UNIT_TEST_CMD := GOCACHE=off go test `go list ./... | grep -v /vendor/` -v
 
 .PHONY: deps-development
 # Test if the dependencies we need to run this Makefile are installed
