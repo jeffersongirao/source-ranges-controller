@@ -1,0 +1,30 @@
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+  labels:
+    app: source-ranges-controller
+  name: source-ranges-controller
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: source-ranges-controller
+  strategy:
+    type: RollingUpdate
+  template:
+    metadata:
+      labels:
+        app: source-ranges-controller
+    spec:
+      containers:
+      - image: quay.io/jeffersongirao/source-ranges-controller:latest
+        imagePullPolicy: IfNotPresent
+        name: app
+        resources:
+          limits:
+            cpu: 100m
+            memory: 50Mi
+          requests:
+            cpu: 10m
+            memory: 50Mi
+      restartPolicy: Always
