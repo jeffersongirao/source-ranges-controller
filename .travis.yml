@@ -1,0 +1,16 @@
+sudo: required
+dist: trusty
+
+services:
+  - docker
+
+language: go
+go:
+  - "1.10.x"
+go_import_path: github.com/jeffersongirao/source-ranges-controller
+
+env:
+  - IN_TRAVIS=true
+
+script:
+  - make test
