@@ -32,7 +32,7 @@ func TestEnforceSourceRangesToServiceWithNoRanges(t *testing.T) {
 		ObjectMeta: metav1.ObjectMeta{
 			Namespace: metav1.NamespaceDefault,
 			Annotations: map[string]string{
-				"net.girao.source-ranges-controller/source-ranges-config-map": "test-config",
+				"source-ranges.alpha.girao.net/config-map": "test-config",
 			},
 		},
 	}
@@ -70,7 +70,7 @@ func TestEnforceSourceRangesToServiceWithLessRanges(t *testing.T) {
 		ObjectMeta: metav1.ObjectMeta{
 			Namespace: metav1.NamespaceDefault,
 			Annotations: map[string]string{
-				"net.girao.source-ranges-controller/source-ranges-config-map": "test-config",
+				"source-ranges.alpha.girao.net/config-map": "test-config",
 			},
 		},
 		Spec: corev1.ServiceSpec{
@@ -110,7 +110,7 @@ func TestEnforceSourceRangesToServiceWithMoreRanges(t *testing.T) {
 		ObjectMeta: metav1.ObjectMeta{
 			Namespace: metav1.NamespaceDefault,
 			Annotations: map[string]string{
-				"net.girao.source-ranges-controller/source-ranges-config-map": "test-config",
+				"source-ranges.alpha.girao.net/config-map": "test-config",
 			},
 		},
 		Spec: corev1.ServiceSpec{
@@ -150,7 +150,7 @@ func TestEnforceSourceRangesToServiceWithNoChanges(t *testing.T) {
 		ObjectMeta: metav1.ObjectMeta{
 			Namespace: metav1.NamespaceDefault,
 			Annotations: map[string]string{
-				"net.girao.source-ranges-controller/source-ranges-config-map": "test-config",
+				"source-ranges.alpha.girao.net/config-map": "test-config",
 			},
 		},
 		Spec: corev1.ServiceSpec{
@@ -181,7 +181,7 @@ func TestEnforceSourceRangesToServiceWithNonExistingConfigMap(t *testing.T) {
 		ObjectMeta: metav1.ObjectMeta{
 			Namespace: metav1.NamespaceDefault,
 			Annotations: map[string]string{
-				"net.girao.source-ranges-controller/source-ranges-config-map": "test-config",
+				"source-ranges.alpha.girao.net/config-map": "test-config",
 			},
 		},
 	}
@@ -227,7 +227,7 @@ func TestEnforceSourceRangesToServiceWhenError(t *testing.T) {
 			Namespace: metav1.NamespaceDefault,
 			Name:      "test-service",
 			Annotations: map[string]string{
-				"net.girao.source-ranges-controller/source-ranges-config-map": "test-config",
+				"source-ranges.alpha.girao.net/config-map": "test-config",
 			},
 		},
 	}

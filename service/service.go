@@ -24,7 +24,7 @@ type ConfigMapSourceRangeEnforcer struct {
 // EnforceSourceRangesToService enforces loadBalancerSourceRanges to a Service based on ConfigMap from annotation
 func (c *ConfigMapSourceRangeEnforcer) EnforceSourceRangesToService(svc *corev1.Service) error {
 	options := metav1.GetOptions{}
-	cmName := svc.ObjectMeta.Annotations["net.girao.source-ranges-controller/source-ranges-config-map"]
+	cmName := svc.ObjectMeta.Annotations["source-ranges.alpha.girao.net/config-map"]
 
 	if cmName != "" {
 		cm, err := c.client.CoreV1().ConfigMaps(svc.ObjectMeta.Namespace).Get(cmName, options)
