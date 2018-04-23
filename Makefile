@@ -6,6 +6,9 @@ SERVICE_NAME := source-ranges-controller
 IMAGE_NAME := jeffersongirao/$(SERVICE_NAME)
 REPOSITORY := quay.io/$(IMAGE_NAME)
 
+# Shell to use for running scripts
+SHELL := $(shell which bash)
+
 # Commit hash from git
 COMMIT=$(shell git rev-parse HEAD)
 
