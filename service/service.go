@@ -9,6 +9,11 @@ import (
 	"k8s.io/client-go/tools/record"
 )
 
+const (
+	// The annotation used for figuring out configmap to get loadBalancerSourceRanges from
+	configMapAnnotationKey = "source-ranges.alpha.girao.net/config-map"
+)
+
 // SourceRangeEnforcer enforces loadBalancerSourceRanges
 type SourceRangeEnforcer interface {
 	EnforceSourceRangesToService(svc *corev1.Service) error
@@ -24,7 +29,7 @@ type ConfigMapSourceRangeEnforcer struct {
 // EnforceSourceRangesToService enforces loadBalancerSourceRanges to a Service based on ConfigMap from annotation
 func (c *ConfigMapSourceRangeEnforcer) EnforceSourceRangesToService(svc *corev1.Service) error {
 	options := metav1.GetOptions{}
-	cmName := svc.ObjectMeta.Annotations["source-ranges.alpha.girao.net/config-map"]
+	cmName := svc.ObjectMeta.Annotations[configMapAnnotationKey]
 
 	if cmName != "" {
 		cm, err := c.client.CoreV1().ConfigMaps(svc.ObjectMeta.Namespace).Get(cmName, options)
