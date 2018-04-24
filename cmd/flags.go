@@ -16,6 +16,7 @@ type Flags struct {
 	Development bool
 	ResyncSec   int
 	KubeConfig  string
+	Namespace   string
 }
 
 func (f *Flags) ControllerConfig() controller.Config {
@@ -33,6 +34,7 @@ func NewFlags() *Flags {
 
 	f.flagSet.IntVar(&f.ResyncSec, "resync-seconds", 30, "The number of seconds the controller will resync the resources")
 	f.flagSet.StringVar(&f.KubeConfig, "kubeconfig", kubehome, "kubernetes configuration path, only used when development mode enabled")
+	f.flagSet.StringVar(&f.Namespace, "namespace", "", "kubernetes namespace to watch for resources, if unset it will watch all namepaces")
 	f.flagSet.BoolVar(&f.Development, "development", false, "development flag will allow to run the operator outside a kubernetes cluster")
 
 	f.flagSet.Parse(os.Args[1:])

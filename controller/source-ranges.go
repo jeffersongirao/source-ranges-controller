@@ -21,7 +21,7 @@ func New(config Config, k8sCli kubernetes.Interface, logger log.Logger) (*Contro
 	recorder := eventer.NewEventRecorder(k8sCli, logger, "source-ranges-controller")
 	sourceRangeEnforcer := service.NewConfigMapSourceRangeEnforcer(k8sCli, recorder)
 	handler := &handler{sourceRangeEnforcerSrv: sourceRangeEnforcer}
-	retriever := NewServiceRetriever(k8sCli)
+	retriever := NewServiceRetriever(k8sCli, config.Namespace)
 	ctrl := controller.NewSequential(config.ResyncPeriod, handler, retriever, nil, logger)
 
 	return &Controller{

@@ -10,22 +10,24 @@ import (
 )
 
 type ServiceRetriever struct {
-	client kubernetes.Interface
+	client    kubernetes.Interface
+	namespace string
 }
 
-func NewServiceRetriever(client kubernetes.Interface) *ServiceRetriever {
+func NewServiceRetriever(client kubernetes.Interface, namespace string) *ServiceRetriever {
 	return &ServiceRetriever{
-		client: client,
+		client:    client,
+		namespace: namespace,
 	}
 }
 
 func (s *ServiceRetriever) GetListerWatcher() cache.ListerWatcher {
 	return &cache.ListWatch{
 		ListFunc: func(options metav1.ListOptions) (runtime.Object, error) {
-			return s.client.CoreV1().Services(metav1.NamespaceAll).List(options)
+			return s.client.CoreV1().Services(s.namespace).List(options)
 		},
 		WatchFunc: func(options metav1.ListOptions) (watch.Interface, error) {
-			return s.client.CoreV1().Services(metav1.NamespaceAll).Watch(options)
+			return s.client.CoreV1().Services(s.namespace).Watch(options)
 		},
 	}
 }

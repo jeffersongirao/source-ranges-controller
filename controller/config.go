@@ -4,4 +4,5 @@ import "time"
 
 type Config struct {
 	ResyncPeriod time.Duration
+	Namespace    string
 }
