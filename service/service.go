@@ -37,7 +37,7 @@ func (c *ConfigMapSourceRangeEnforcer) EnforceSourceRangesToService(svc *corev1.
 			reason := "SourceRangesEnforcementFailed"
 			message := fmt.Sprintf("could not read ConfigMap %s: %v", cmName, err)
 			c.recorder.Eventf(svc, corev1.EventTypeWarning, reason, message)
-			return nil
+			return err
 		}
 
 		if len(difference(configMapValues(cm.Data), svc.Spec.LoadBalancerSourceRanges)) != 0 {
@@ -47,6 +47,7 @@ func (c *ConfigMapSourceRangeEnforcer) EnforceSourceRangesToService(svc *corev1.
 				reason := "SourceRangesEnforcementFailed"
 				message := fmt.Sprintf("could not update Service %s: %v", svc.ObjectMeta.Name, err)
 				c.recorder.Eventf(svc, corev1.EventTypeWarning, reason, message)
+				return err
 			} else {
 				reason := "SourceRangesEnforcementSuccessful"
 				message := fmt.Sprintf("Updated Service %s with LB source ranges: %v", svc.ObjectMeta.Name, configMapValues(cm.Data))

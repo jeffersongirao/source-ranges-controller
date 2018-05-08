@@ -190,7 +190,8 @@ func TestEnforceSourceRangesToServiceWithNonExistingConfigMap(t *testing.T) {
 	recorder := record.NewFakeRecorder(1)
 	e := service.NewConfigMapSourceRangeEnforcer(k8sCli, recorder)
 
-	e.EnforceSourceRangesToService(svc)
+	err := e.EnforceSourceRangesToService(svc)
+	assert.NotNil(t, err)
 
 	new, _ := k8sCli.CoreV1().Services(svc.ObjectMeta.Namespace).Get(svc.ObjectMeta.Name, metav1.GetOptions{})
 	assert.Nil(t, new.Spec.LoadBalancerSourceRanges)
@@ -236,7 +237,8 @@ func TestEnforceSourceRangesToServiceWhenError(t *testing.T) {
 	recorder := record.NewFakeRecorder(1)
 	e := service.NewConfigMapSourceRangeEnforcer(k8sCli, recorder)
 
-	e.EnforceSourceRangesToService(svc)
+	err := e.EnforceSourceRangesToService(svc)
+	assert.NotNil(t, err)
 
 	new, _ := k8sCli.CoreV1().Services(svc.ObjectMeta.Namespace).Get(svc.ObjectMeta.Name, metav1.GetOptions{})
 	assert.Nil(t, new.Spec.LoadBalancerSourceRanges)
